@@ -1,0 +1,45 @@
+{
+  "summary": "First full E2E run of the TUACARIGUA.COM marketplace. Backend: 27/29 pytest pass. The 2 failures: a regex-injection 500 on q, and the brute-force lockout not working behind the ingress. Frontend: all requested flows pass. That covers home (featured excludes sold, recent, category cards), hero search to /buscar with params, all filters/sort/hide-sold/clear, detail gallery prev/next/thumbs, the WhatsApp href (wa.me/584245245770 with the /anuncio/{id} link), the sold notice with no WhatsApp button, 404 page, price formats ($ 120.000 / Bs. 14.500), admin login error/success, /admin/panel redirect without a token, create with a real photo upload (served at /api/files/...), edit, toggle featured/sold (stats update), tabs, delete with confirm, and logout. Mobile 390px has no horizontal overflow.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/auth/login", "issue": "Brute-force lockout does not work. The identifier is request.client.host + email, but behind the k8s ingress the client host changes between requests (seen: 10.66.0.200 and 10.66.0.201). Attempts are split across keys, so the 6th wrong attempt still returned 401 instead of 429. Fix: key on the X-Forwarded-For first IP (or on email only).", "priority": "HIGH"},
+      {"endpoint": "GET /api/listings?q=(", "issue": "Returns 500. q is passed to $regex without escaping, so special characters like ( [ * + ? crash the query. Fix: re.escape(q). Frontend side: the search page then stays on 'Cargando...' skeletons forever because it has no error state.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "GET /api/listings (min_price/max_price/sort price_*)", "issue": "USD and Bs prices are compared as raw numbers. Example: with sort=price_desc, Bs. 14.500 lands between $ 18.000 and $ 9.800, and a price range filter mixes currencies. Consider sorting/filtering inside one currency, or only applying the price filter when a currency is selected."},
+      {"endpoint": "DELETE /api/admin/listings/{id}", "issue": "Uploaded files are never marked is_deleted, so orphan files pile up in object storage."},
+      {"endpoint": "CORS", "issue": "CORS_ORIGINS='*' together with allow_credentials=True. This is acceptable for Bearer-header auth, but the playbook expects explicit origins. No httpOnly auth cookie is set: the token is stored in localStorage by design."},
+      {"endpoint": "GET /api/files/{path}", "issue": "If the object-storage GET fails, the request returns an unhandled 500. It should return a clean 404/502."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Search page", "issue": "No error state. When the API errors, results-count stays 'Cargando...' with skeleton cards forever.", "selector": "[data-testid='results-count']", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/admin/panel", "issues": ["The dashboard renders briefly before the /auth/me redirect when there is no token. This is minor; a route guard that checks for the token first would be better.", "/admin does not redirect to /admin/panel when a valid token already exists."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_tuacarigua_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Escape the q regex in list_listings (re.escape) to stop the 500.",
+    "Fix the login lockout identifier so it uses X-Forwarded-For (first IP) or email only, so it works behind the ingress.",
+    "Add an error state to the Search page and the Home grids for when a listings fetch fails.",
+    "Optional: handle mixed-currency price sort/filter; set explicit CORS origins; mark files as deleted when a listing is deleted."
+  ],
+  "critical_code_review_comments": [
+    "server.py: the $regex built from user input is unescaped (500s and possible ReDoS).",
+    "server.py login: request.client.host is the ingress IP, not the real client.",
+    "server.py serve_file: an object-storage exception is unhandled and becomes a 500.",
+    "Seed is idempotent: the admin is created only if missing and its password is never overwritten. The bcrypt hash starts with $2b$. Good."
+  ],
+  "updated_files": ["/app/backend/tests/test_tuacarigua_api.py"],
+  "success_rate": {"backend": "93% (27/29)", "frontend": "97% (all requested flows pass; only the error-state gap)"},
+  "test_credentials": "admin@tuacarigua.com / Tuacarigua2026! (from /app/memory/test_credentials.md) - works",
+  "seed_data_creation": "None. The TEST_ listings created by the tests (API and UI) were deleted; GET /api/listings?q=TEST_ returns []. Two small test PNGs were uploaded to object storage and remain there. The brute-force test left login_attempts docs for random test_xxxx@example.com emails.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run: cd /app/backend && REACT_APP_BACKEND_URL=... pytest tests/test_tuacarigua_api.py. The expected failures until fixed are test_text_search_regex_special_chars and test_brute_force_lockout. Seed IDs: Quinta 5b360ce0-4f3c-48e7-8c13-f4a4c5f66619 (3 images), Jeep (sold) 1544c91b-0307-4f2c-9970-4308f067a22d, Nevera (Bs) 60d375b2-212f-4c2a-a9ec-bc55c00bdd91.",
+  "rca of the issue": "Lockout: login_attempts rows show identifiers '10.66.0.200:email' count 2 and '10.66.0.201:email' count 4 for the same 6 attempts, so no single key reached 5. Regex: GET /api/listings?q=( returns 500 because Mongo rejects the invalid regex pattern."
+}

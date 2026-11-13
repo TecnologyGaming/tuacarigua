@@ -47,7 +47,11 @@ export default function AdminDashboard() {
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
-  useEffect(() => { api.get("/auth/me").catch(() => { localStorage.removeItem("tua_admin_token"); nav("/admin"); }); }, [nav]);
+  const hasToken = !!localStorage.getItem("tua_admin_token");
+  useEffect(() => {
+    if (!hasToken) { nav("/admin"); return; }
+    api.get("/auth/me").catch(() => { localStorage.removeItem("tua_admin_token"); nav("/admin"); });
+  }, [nav, hasToken]);
 
   const stats = useQuery({ queryKey: ["admin-stats"], queryFn: async () => (await api.get("/admin/stats")).data });
   const params = { limit: 200, q: q || undefined, ...(tab === "featured" && { featured: true }), ...(tab === "active" && { hide_sold: true }) };

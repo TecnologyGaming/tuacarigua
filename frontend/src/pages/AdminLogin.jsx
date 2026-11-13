@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,10 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("tua_admin_token")) api.get("/auth/me").then(() => nav("/admin/panel")).catch(() => localStorage.removeItem("tua_admin_token"));
+  }, [nav]);
 
   const submit = async (e) => {
     e.preventDefault();

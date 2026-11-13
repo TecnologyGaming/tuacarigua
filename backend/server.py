@@ -7,6 +7,7 @@ load_dotenv(ROOT_DIR / '.env')
 import asyncio
 import os
 import logging
+import re
 import uuid
 from contextlib import suppress
 from datetime import datetime, timezone, timedelta
@@ -190,9 +191,10 @@ async def list_listings(
         if min_price is not None: f["price"]["$gte"] = min_price
         if max_price is not None: f["price"]["$lte"] = max_price
     if q:
+        q = re.escape(q)
         f["$or"] = [{"title": {"$regex": q, "$options": "i"}}, {"description": {"$regex": q, "$options": "i"}},
                     {"zone": {"$regex": q, "$options": "i"}}]
-    sort_spec = {"recent": [("sold", 1), ("created_at", -1)], "price_asc": [("price", 1)], "price_desc": [("price", -1)]}[sort]
+    sort_spec = {"recent": [("sold", 1), ("created_at", -1)], "price_asc": [("currency", -1), ("price", 1)], "price_desc": [("currency", -1), ("price", -1)]}[sort]
     docs = await db.listings.find(f, {"_id": 0}).sort(sort_spec).limit(limit).to_list(limit)
     return [Listing(**d) for d in docs]
 
@@ -215,7 +217,11 @@ async def serve_file(path: str):
     rec = await db.files.find_one({"storage_path": path, "is_deleted": False}, {"_id": 0})
     if not rec:
         raise HTTPException(404, "Archivo no encontrado")
-    data, ct = await asyncio.to_thread(get_object, path)
+    try:
+        data, ct = await asyncio.to_thread(get_object, path)
+    except Exception as e:
+        logger.error(f"get_object failed {path}: {e}")
+        raise HTTPException(502, "No se pudo cargar la imagen")
     return Response(content=data, media_type=rec.get("content_type") or ct,
                     headers={"Cache-Control": "public, max-age=86400"})
 
@@ -223,7 +229,7 @@ async def serve_file(path: str):
 @api.post("/auth/login")
 async def login(body: LoginIn, request: Request):
     email = body.email.strip().lower()
-    ident = f"{request.client.host if request.client else 'x'}:{email}"
+    ident = email
     att = await db.login_attempts.find_one({"identifier": ident})
     now = datetime.now(timezone.utc)
     if att and att.get("count", 0) >= 5 and att.get("locked_until") and datetime.fromisoformat(att["locked_until"]) > now:

@@ -15,7 +15,7 @@ export default function Search() {
     setSp(Object.fromEntries(Object.entries(next).filter(([, v]) => v !== "" && v != null)), { replace: true });
   };
   const params = { ...f, sort: f.sort || "recent", hide_sold: f.hide_sold === "1", limit: 200 };
-  const { data, isLoading } = useListings(params);
+  const { data, isLoading, isError } = useListings(params);
   const title = CATEGORIES.find((c) => c.value === f.category)?.label || "Todas las publicaciones";
 
   return (
@@ -42,8 +42,8 @@ export default function Search() {
           </div>
         </div>
       </div>
-      <p data-testid="results-count" className="mt-8 mb-5 text-sm text-slate-500">{data ? `${data.length} resultado(s)` : "Cargando..."}</p>
-      <ListingGrid items={data} loading={isLoading} />
+      <p data-testid="results-count" className="mt-8 mb-5 text-sm text-slate-500">{isError ? "No se pudieron cargar las publicaciones. Intenta de nuevo." : data ? `${data.length} resultado(s)` : "Cargando..."}</p>
+      {!isError && <ListingGrid items={data} loading={isLoading} />}
     </div>
   );
 }
