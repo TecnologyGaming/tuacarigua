@@ -1,0 +1,164 @@
+{
+  "project_name": "TUACARIGUA.COM",
+  "app_type": "Real Estate & Classifieds Marketplace + Admin Portal",
+  "language": "es",
+  "brand_identity": {
+    "name": "TUACARIGUA.COM",
+    "description": "El portal inmobiliario y de clasificados líder de Acarigua y Portuguesa. Compra, venta y alquiler de inmuebles, vehículos y más con contacto directo vía WhatsApp.",
+    "logo_elements": {
+      "primary_navy": "#0B2A5B",
+      "accent_orange": "#FF6A00",
+      "bright_blue": "#0066FF",
+      "motif": "Silueta de montaña con edificios, pin de ubicación, carrito de compras y techo de casa"
+    },
+    "emotional_archetype": "Trust & High-Contrast Precision (Combination of Performance Pro & Swiss Authority)"
+  },
+  "theme": {
+    "default": "light",
+    "support_dark_mode": true
+  },
+  "color_palette": {
+    "primary_navy": "#0B2A5B",
+    "navy_hover": "#071D40",
+    "accent_orange": "#FF6A00",
+    "orange_hover": "#E05D00",
+    "bright_blue": "#0066FF",
+    "whatsapp_green": "#25D366",
+    "whatsapp_green_hover": "#1DA851",
+    "background_light": "#F8FAFC",
+    "card_light": "#FFFFFF",
+    "text_main": "#0F172A",
+    "text_muted": "#64748B",
+    "border_subtle": "#E2E8F0",
+    "badge_vendido": "#EF4444",
+    "badge_destacado": "#FF6A00"
+  },
+  "typography": {
+    "heading_font": "Plus Jakarta Sans, sans-serif",
+    "body_font": "Inter, sans-serif",
+    "accent_mono": "JetBrains Mono, monospace",
+    "scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "h4": "text-lg sm:text-xl font-medium",
+      "body": "text-base leading-relaxed text-slate-700",
+      "caption": "text-xs uppercase tracking-wider font-semibold text-slate-500"
+    }
+  },
+  "spacing_and_layout": {
+    "container_max_width": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "grid_listings": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6",
+    "grid_featured": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+    "hero_padding": "py-16 md:py-24",
+    "section_padding": "py-12 md:py-16"
+  },
+  "image_urls": [
+    {
+      "category": "Inmuebles - Casa Moderna con Piscina",
+      "url": "https://images.unsplash.com/photo-1706808849780-7a04fbac83ef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsdXh1cnklMjBob3VzZSUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3OTQ1MjkzNDV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Casa moderna con iluminación nocturna y piscina"
+    },
+    {
+      "category": "Inmuebles - Quinta de Lujo",
+      "url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBsdXh1cnklMjBob3VzZSUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3OTQ1MjkzNDV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Quinta moderna con piscina y acabados de lujo"
+    },
+    {
+      "category": "Inmuebles - Apartamento / Residencia",
+      "url": "https://images.unsplash.com/photo-1721815693498-cc28507c0ba2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBsdXh1cnklMjBob3VzZSUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3OTQ1MjkzNDV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Edificio residencial moderno de 2 plantas"
+    },
+    {
+      "category": "Vehículos - Camioneta SUV Roja",
+      "url": "https://images.unsplash.com/photo-1777015287086-fb9ceffbdaed?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBTVVYlMjBjYXIlMjB2ZWhpY2xlfGVufDB8fHx8MTc5NDUyOTM0NXww&ixlib=rb-4.1.0&q=85",
+      "description": "Camioneta SUV roja moderna impecable"
+    },
+    {
+      "category": "Vehículos - Camioneta SUV Jeep",
+      "url": "https://images.unsplash.com/photo-1618353482480-61ca5a9a7879?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBTVVYlMjBjYXIlMjB2ZWhpY2xlfGVufDB8fHx8MTc5NDUyOTM0NXww&ixlib=rb-4.1.0&q=85",
+      "description": "Camioneta 4x4 Jeep al atardecer"
+    },
+    {
+      "category": "Vehículos - Moto Deportiva Naranja",
+      "url": "https://images.unsplash.com/photo-1609630875171-b1321377ee65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBzcG9ydCUyMG1vdG9yY3ljbGV8ZW58MHx8fHwxNzk0NTI5MzUyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Moto deportiva de alta cilindrada naranja y negra"
+    },
+    {
+      "category": "Vehículos - Moto Yamaha Azul",
+      "url": "https://images.unsplash.com/photo-1588627541420-fce3f661b779?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBzcG9ydCUyMG1vdG9yY3ljbGV8ZW58MHx8fHwxNzk0NTI5MzUyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Moto de velocidad Yamaha R1 azul y plateada"
+    }
+  ],
+  "components_and_features": {
+    "header": {
+      "logo_component": "TuacariguaLogo (SVG con montañas, casa, carrito, pin y texto TUACARIGUA.COM en azul #0B2A5B y naranja #FF6A00)",
+      "nav_links": [
+        "Inicio",
+        "Inmuebles",
+        "Vehículos",
+        "Otros",
+        "Destacados"
+      ],
+      "actions": [
+        "Currency Switcher ($ USD / Bs)",
+        "Acceso Admin (/admin)"
+      ]
+    },
+    "hero_section": {
+      "title": "Encuentra Tu Inmueble, Vehículo o Terreno Ideal en Acarigua",
+      "subtitle": "El marketplace inmobiliario y de clasificados más confiable de la región. Contacto directo por WhatsApp.",
+      "search_filter_bar": {
+        "fields": [
+          "Categoría (Inmuebles, Vehículos, Otros)",
+          "Tipo (Casas, Aptos, Terrenos, Locales, Carros, Motos)",
+          "Zona / Sector (Acarigua Norte, Centro, Araure, Llano Alto, etc.)",
+          "Rango de Precio ($ USD)"
+        ],
+        "button": "Buscar Publicaciones"
+      }
+    },
+    "listing_card": {
+      "elements": [
+        "Image carousel or main photo with photo counter tag",
+        "Badge VENDIDO (Red) if sold, Badge DESTACADO (Orange) if featured",
+        "Price tag with primary currency ($ USD) and converted optional currency (Bs.)",
+        "Title & Zone / Location pill",
+        "Key attributes (Habitaciones, Baños, Metros2, Año, Transmisión for cars)",
+        "WhatsApp Direct Contact Action Button ('Preguntar por WhatsApp')"
+      ]
+    },
+    "whatsapp_integration": {
+      "phone_number": "584120000000",
+      "message_template": "Hola! Vi esta publicación en TUACARIGUA.COM y quisiera más información:\n📌 *{title}*\n💰 Precio: ${price_usd}\n📍 Ubicación: {zone}\n🔗 Link: {listing_url}"
+    },
+    "listing_detail_modal_or_page": {
+      "photo_gallery": "Grid + lightbox modal with all uploaded images",
+      "specs_grid": "Full features list with icons (habs, baños, estacionamientos, m², terreno, aire acondicionado, vigilancia)",
+      "description_text": "Detailed text formatted nicely",
+      "seller_card": "Vendedor Oficial Tuacarigua + Sticky 'Preguntar por WhatsApp' button with predefined message link"
+    },
+    "admin_dashboard": {
+      "route": "/admin",
+      "authentication": "Simple password/PIN protection stored in localStorage / Backend token",
+      "features": [
+        "Listings Table with filters (Todas, Activas, Vendidas, Destacadas)",
+        "Create New Listing Modal / Form with multi-image selector/preview",
+        "Quick Toggle 'Marcar como VENDIDO'",
+        "Quick Toggle 'Destacar en Inicio'",
+        "Edit Listing & Delete Listing",
+        "Category and Zone manager"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. Replace stock splash screen in src/App.js with complete React Router configuration: '/' for public marketplace, '/inmueble/:id' or modal for details, and '/admin' for the administrative panel.",
+    "2. Implement brand SVG logo reflecting TUACARIGUA.COM identity (#0B2A5B Navy + #FF6A00 Orange) with mountains, house roof, location pin, and cart icons.",
+    "3. Use Spanish for all UI text, forms, labels, filters, and status badges.",
+    "4. Ensure all interactive elements include data-testid attributes (e.g., data-testid='search-input', data-testid='whatsapp-contact-button', data-testid='admin-login-submit').",
+    "5. Populate initial mock database or backend state with at least 8-10 high quality realistic listings in Acarigua/Araure (Casas, Apartamentos, Terrenos, Locales, Carros, Motos) using provided Unsplash image URLs.",
+    "6. Build a fully functioning WhatsApp URL generator using encodeURIComponent for smooth user inquiry link opening in a new tab.",
+    "7. Build complete /admin section: login view, dashboard stats summary, listing CRUD table, status toggles (VENDIDO, DESTACADO), image URL uploader with instant previews.",
+    "8. Include dynamic currency conversion toggle ($ USD and Bs.) with editable exchange rate in admin or header."
+  ]
+}
